@@ -14,8 +14,16 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+
+                // Consultar pedidos
                 .requestMatchers("/api/pedidos")
                 .hasAuthority("SCOPE_pedidos360-api/pedidos360-api-read")
+
+                // Consultar productos
+                .requestMatchers("/api/productos")
+                .hasAuthority("SCOPE_pedidos360-api/productos-read")
+
+                // Cualquier otra ruta
                 .anyRequest().permitAll()
             )
             .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}));
